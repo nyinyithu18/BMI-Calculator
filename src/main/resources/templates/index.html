@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>BMI Calculator</title>
+	<style>
+			.container {
+					width: 350px;
+					height: auto;
+					border: 1px solid black;
+					margin: auto;
+			}
+			
+			.container h2 {
+					text-align: center;
+			}
+			
+			form , .result {
+				padding: 10px;
+			}
+			
+			.result {
+				padding: 10px;
+				text-align: center;
+			}
+			
+			.length {
+					width: 60px;
+			}
+			
+			.inches {
+					margin-left: 52px;
+			}
+			
+			.button {
+					align-item: between;
+					display: flex;
+					justify-content: space-around;
+			}
+			
+			.button input {
+					background-color: cyan;
+					color: #fff;
+			}
+			
+			h4 {
+					margin-left: 10px;
+			}
+			
+			table {
+					display: flex;
+					justify-content: center;
+					text-align: center;
+					margin-bottom: 10px;
+			}
+			
+			td, th {
+					border: 1px solid black;
+					border-collapse: collapse;
+					padding: 5px 10px;
+			}
+		
+			table tr th {
+					background-color: lightgray;
+					font-weight: bold;
+			}
+			
+			.underweight {
+					background-color: cyan;
+			}
+			
+			.normal {
+					background-color: green;
+			}
+			
+			.overweight {
+					background-color: yellow;
+			}
+			
+			.obese {
+					background-color: red;
+			}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2>Adult and Child BMI Calculator</h2>
+		<hr>
+		<form th:action="bmidata" method="GET">
+			<label for="adultAge">Calculator BMI for</label>
+			<input type="text" name="adultAge" placeholder="Adult Age 20+">
+			
+			<br><br>
+			
+			<label for="weight">Weight:</label>
+			<input type="number" name="weight">
+			<input class="length" type="text" value="pounds" disabled>
+			
+			<br><br>
+			
+			<label for="height">Height:</label>
+			<input type="number" name="height">
+			<input class="length" type="text" value="feet" disabled>
+			
+			<br><br>
+			
+			<input class="inches" type="number" name="inches">
+			<input class="length" type="text" value="inches" disabled>
+			
+			<br><br>
+			
+			<div class="button">
+				<input type="reset" value="Clear">
+				<input type="submit" value="Calculate">
+			</div>
+			
+			<br><br>
+		</form>
+		
+		<h4>Answer: </h4>
+		<div th:if="${bmiModel != null}" class="result">
+			<b>BMI = </b><span th:text="${bmiModel.bmi}"></span>
+			<br><br>
+			<b>Status = </b><span th:text="${bmiModel.resultStatus}"></span>
+		</div>
+		<br><br>
+		
+		<table class="table">
+			<tr>
+				<th>BMI</th>
+				<th>Status</th>
+			</tr>
+			<tr>
+				<td class="underweight"> under 18.4</td>
+				<td>Underweight</td>
+			</tr>
+			<tr>
+				<td class="normal"> 18.5 - 24.9</td>
+				<td>Normal</td>
+			</tr>
+			<tr>
+				<td class="overweight"> 25.0 - 39.9</td>
+				<td>Overweight</td>
+			</tr>
+			<tr>
+				<td class="obese"> over 40.0 </td>
+				<td>obese</td>   
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
